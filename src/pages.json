@@ -1,0 +1,202 @@
+{
+	"pages": [
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/reading/prepare",
+			"style": {
+				"navigationBarTitleText": "准备占卜",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/reading/draw",
+			"style": {
+				"navigationBarTitleText": "抽牌",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/reading/history",
+			"style": {
+				"navigationBarTitleText": "历史记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/reading/detail",
+			"style": {
+				"navigationBarTitleText": "占卜详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/divination/single",
+			"style": {
+				"navigationBarTitleText": "单卡占卜",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/divination/love",
+			"style": {
+				"navigationBarTitleText": "爱情占卜",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/divination/career",
+			"style": {
+				"navigationBarTitleText": "事业占卜",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/divination/health",
+			"style": {
+				"navigationBarTitleText": "健康占卜",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/divination/custom",
+			"style": {
+				"navigationBarTitleText": "自定义占卜",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/cards/detail",
+			"style": {
+				"navigationBarTitleText": "卡牌详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/cards/library",
+			"style": {
+				"navigationBarTitleText": "卡牌库",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/result/detail",
+			"style": {
+				"navigationBarTitleText": "解读详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/user/profile",
+			"style": {
+				"navigationBarTitleText": "个人资料",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/user/history",
+			"style": {
+				"navigationBarTitleText": "历史记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/user/collection",
+			"style": {
+				"navigationBarTitleText": "我的收藏",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/user/membership",
+			"style": {
+				"navigationBarTitleText": "会员中心",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/learn/index",
+			"style": {
+				"navigationBarTitleText": "学习",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/learn/basics",
+			"style": {
+				"navigationBarTitleText": "基础知识",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/learn/history",
+			"style": {
+				"navigationBarTitleText": "历史文化",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/learn/spreads",
+			"style": {
+				"navigationBarTitleText": "牌阵介绍",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/learn/articles",
+			"style": {
+				"navigationBarTitleText": "专题文章",
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarBackgroundColor": "#000000",
+		"backgroundColor": "#000000"
+	},
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#9370DB",
+		"backgroundColor": "#000000",
+		"borderStyle": "black",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/images/tabs/home.png",
+				"selectedIconPath": "static/images/tabs/home-active.png"
+			},
+			{
+				"pagePath": "pages/cards/library",
+				"text": "卡牌库",
+				"iconPath": "static/images/tabs/cards.png",
+				"selectedIconPath": "static/images/tabs/cards-active.png"
+			},
+			{
+				"pagePath": "pages/learn/index",
+				"text": "学习",
+				"iconPath": "static/images/tabs/learn.png",
+				"selectedIconPath": "static/images/tabs/learn-active.png"
+			},
+			{
+				"pagePath": "pages/user/profile",
+				"text": "我的",
+				"iconPath": "static/images/tabs/user.png",
+				"selectedIconPath": "static/images/tabs/user-active.png"
+			}
+		]
+	}
+}
