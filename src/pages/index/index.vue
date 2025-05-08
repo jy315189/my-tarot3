@@ -150,67 +150,67 @@
 				readingTypes: [
 					{
 						name: '时间之箭',
-						description: '回答简单的问题',
+						description: '揭示过去、现在和未来的发展脉络，帮助理解事件走向',
 						cards: 3,
 						image: '/static/images/reading-single.jpg'
 					},
 					{
 						name: '是非问题',
-						description: '回答是非类问题',
+						description: '通过两张牌的对比，为是与否的决策提供清晰指引',
 						cards: 2,
 						image: '/static/images/reading-three.jpg'
 					},
 					{
 						name: '圣三角',
-						description: '回答简单问题',
+						description: '从问题本质、挑战和解决方案三个维度全面分析',
 						cards: 3,
 						image: '/static/images/reading-three.jpg'
 					},
 					{
 						name: '钻石展开法',
-						description: '解析事件走向',
+						description: '深度剖析事件的起因、影响和最终走向，洞察完整发展',
 						cards: 5,
 						image: '/static/images/reading-cross.jpg'
 					},
 					{
 						name: '恋人金字塔',
-						description: '分析恋爱走向',
+						description: '探索双方感受和共同基础，预测恋情可能的发展方向',
 						cards: 6,
 						image: '/static/images/reading-relationship.jpg'
 					},
 					{
 						name: '自我探索',
-						description: '认清自我处境',
+						description: '照见真实的自己，探索内在动力和潜在的成长方向',
 						cards: 4,
 						image: '/static/images/reading-three.jpg'
 					},
 					{
 						name: '吉普赛十字',
-						description: '分析关系走向',
+						description: '分析双方在关系中的位置，揭示关系核心和可能走向',
 						cards: 5,
 						image: '/static/images/reading-cross.jpg'
 					},
 					{
 						name: '二选一',
-						description: '比较多种选择',
+						description: '对比分析两种选择的本质和可能结果，辅助重要决策',
 						cards: 5,
 						image: '/static/images/reading-cross.jpg'
 					},
 					{
 						name: '关系发展',
-						description: '解析双方想法与期望',
+						description: '深入理解双方真实想法与期望，预测关系潜在发展',
 						cards: 6,
 						image: '/static/images/reading-relationship.jpg'
 					},
 					{
 						name: '六芒星',
-						description: '分析事业与事件走向',
+						description: '全面解析复杂事业和项目，探究多种影响因素和长期走向',
 						cards: 7,
 						image: '/static/images/reading-relationship.jpg'
 					},
 					{
 						name: '凯尔特十字',
-						description: '古老而全面的牌阵',
+						description: '古老强大的综合牌阵，多维度深入剖析重大问题和人生方向',
 						cards: 10,
 						image: '/static/images/reading-cross.jpg'
 					}
