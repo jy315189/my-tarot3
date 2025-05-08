@@ -93,52 +93,316 @@ export default {
       spreads: [
         {
           id: 1,
-          name: '单卡占卜',
-          description: '最基础的塔罗牌阵，只需一张牌就能快速获得指引。适合日常简单问题或每日指引。',
+          name: '时间之箭',
+          description: '简单而有效的牌阵，帮助回答各种简单问题，呈现过去、现在和未来的时间线。',
           image: '/static/images/spread/single.png',
           difficulty: 1,
-          cardCount: 1,
-          suitableFor: '日常决策、简单问题、每日指引、初学者练习',
-          tips: '专注于你的问题，深入理解这张牌在当前情境中的意义。关注牌面元素的细节和象征意义，思考它如何与你的具体情况产生共鸣。',
+          cardCount: 3,
+          suitableFor: '日常决策、简单问题、了解事件发展、新手入门',
+          tips: '专注于你的问题，观察牌之间的联系，理解事件如何从过去发展到未来。',
           positions: [
             {
-              name: '核心信息',
-              meaning: '代表问题的核心答案或关键信息，直接回应提问者的疑问。'
+              name: '过去',
+              meaning: '代表影响当前情况的过去事件或因素。'
+            },
+            {
+              name: '现在',
+              meaning: '显示当前所处的状态和面临的情况。'
+            },
+            {
+              name: '未来',
+              meaning: '指示可能的发展方向和结果。'
             }
           ]
         },
         {
           id: 2,
-          name: '三卡展开',
-          description: '经典的三卡牌阵，代表过去、现在和未来，呈现问题的时间线和发展趋势。',
+          name: '是非问题',
+          description: '专门设计用来回答是非类问题的简单牌阵，通过两张牌对比提供清晰答案。',
           image: '/static/images/spread/three-card.png',
-          difficulty: 2,
-          cardCount: 3,
-          suitableFor: '了解情况发展、寻求简单建议、分析问题的不同阶段',
-          tips: '注意三张牌之间的关联和流动，它们共同讲述一个故事。从过去学习教训，理解现状，预见未来可能的发展。',
+          difficulty: 1,
+          cardCount: 2,
+          suitableFor: '简单的是非问题、二选一决策、需要明确方向的情况',
+          tips: '清晰明确地提出你的是非问题，留意两张牌的对比和互动，寻找答案的倾向性。',
           positions: [
             {
-              name: '过去',
-              meaning: '代表过去的影响因素，或已经发生的事件对当前情况的影响。'
+              name: '是/积极面',
+              meaning: '代表选择"是"或积极方向的能量和可能结果。'
             },
             {
-              name: '现在',
-              meaning: '表示当前所处的状态和面临的挑战或机遇。'
-            },
-            {
-              name: '未来',
-              meaning: '显示情况可能的发展方向或结果，提供前进的指引。'
+              name: '否/消极面',
+              meaning: '代表选择"否"或消极方向的能量和可能结果。'
             }
           ]
         },
         {
           id: 3,
-          name: '凯尔特十字',
-          description: '最著名的塔罗牌阵之一，通过十字形布局深入分析问题的多个方面和潜在影响。',
+          name: '圣三角',
+          description: '三张牌形成的三角形布局，从不同维度回答问题，提供深入的洞察。',
+          image: '/static/images/spread/three-card.png',
+          difficulty: 2,
+          cardCount: 3,
+          suitableFor: '多维度分析问题、寻求全面的解决方案、平衡不同因素',
+          tips: '将三个牌位视为相互关联的整体，共同创造出一个平衡的答案。留意三角形的能量流动。',
+          positions: [
+            {
+              name: '问题本质',
+              meaning: '代表当前问题的核心或本质所在。'
+            },
+            {
+              name: '挑战或阻碍',
+              meaning: '显示需要克服的障碍或注意的问题。'
+            },
+            {
+              name: '解决方案',
+              meaning: '提供可能的解决途径或建议的行动。'
+            }
+          ]
+        },
+        {
+          id: 4,
+          name: '钻石展开法',
+          description: '钻石形状的布局，专注于事件的发展走向，帮助理解事件的完整脉络。',
           image: '/static/images/spread/cross.png',
+          difficulty: 3,
+          cardCount: 5,
+          suitableFor: '分析事件发展、了解项目走向、评估长期计划',
+          tips: '从中心点开始阅读，向外扩展。注意事件如何从起因发展到结果，以及内外因素的影响。',
+          positions: [
+            {
+              name: '当前状况',
+              meaning: '事件的现状或核心问题。'
+            },
+            {
+              name: '起因',
+              meaning: '导致当前状况的原因或起点。'
+            },
+            {
+              name: '近期发展',
+              meaning: '即将到来的变化或短期发展。'
+            },
+            {
+              name: '外部影响',
+              meaning: '环境因素或他人对事件的影响。'
+            },
+            {
+              name: '最终走向',
+              meaning: '事件可能的结果或长期发展方向。'
+            }
+          ]
+        },
+        {
+          id: 5,
+          name: '恋人金字塔',
+          description: '金字塔形布局，专为恋情分析设计，帮助理解爱情关系的各个层面。',
+          image: '/static/images/spread/relationship.png',
+          difficulty: 3,
+          cardCount: 6,
+          suitableFor: '分析恋爱关系、了解爱情走向、评估感情发展可能性',
+          tips: '从底部向顶部阅读，底部是基础，顶部是结果。注意牌与牌之间的关系，寻找爱情的整体走向。',
+          positions: [
+            {
+              name: '关系基础',
+              meaning: '你们关系的基础或起点。'
+            },
+            {
+              name: '你的感受',
+              meaning: '你对这段关系的真实感受和想法。'
+            },
+            {
+              name: '对方感受',
+              meaning: '对方对这段关系的真实感受和想法。'
+            },
+            {
+              name: '共同点',
+              meaning: '你们之间的联系或共同目标。'
+            },
+            {
+              name: '挑战',
+              meaning: '关系中面临的困难或需要克服的障碍。'
+            },
+            {
+              name: '恋情走向',
+              meaning: '关系的可能发展方向和结果。'
+            }
+          ]
+        },
+        {
+          id: 6,
+          name: '自我探索',
+          description: '帮助认清自己在当前处境中的位置，加深自我认知和理解。',
+          image: '/static/images/spread/timeline.png',
+          difficulty: 2,
+          cardCount: 4,
+          suitableFor: '自我反思、处境分析、个人成长、明确方向',
+          tips: '保持开放的心态，不带判断地接受卡牌的反馈。这个牌阵是关于你自己的内在旅程。',
+          positions: [
+            {
+              name: '真实的我',
+              meaning: '你当前的真实状态和内在感受。'
+            },
+            {
+              name: '外在形象',
+              meaning: '你向他人展示的一面或他人对你的看法。'
+            },
+            {
+              name: '内在动力',
+              meaning: '驱动你的内在力量或潜意识欲望。'
+            },
+            {
+              name: '成长方向',
+              meaning: '你需要发展的方向或内在潜力。'
+            }
+          ]
+        },
+        {
+          id: 7,
+          name: '吉普赛十字',
+          description: '传统的十字形布局，专注于人际关系的分析，揭示关系的多个维度。',
+          image: '/static/images/spread/cross.png',
+          difficulty: 3,
+          cardCount: 5,
+          suitableFor: '分析各类人际关系、了解关系动态、解决关系冲突',
+          tips: '从中心向外阅读，中心代表关系的核心。注意牌与牌的互动和相互影响，它们一起描绘了关系的全貌。',
+          positions: [
+            {
+              name: '关系核心',
+              meaning: '关系的本质或当前状态。'
+            },
+            {
+              name: '你的立场',
+              meaning: '你在关系中的位置和态度。'
+            },
+            {
+              name: '对方立场',
+              meaning: '对方在关系中的位置和态度。'
+            },
+            {
+              name: '关系基础',
+              meaning: '支撑关系的基础或过去的影响。'
+            },
+            {
+              name: '关系走向',
+              meaning: '关系的发展方向和可能的结果。'
+            }
+          ]
+        },
+        {
+          id: 8,
+          name: '二选一',
+          description: '帮助在多个选择间做决定的牌阵，比较不同选项的结果和影响。',
+          image: '/static/images/spread/timeline.png',
+          difficulty: 2,
+          cardCount: 5,
+          suitableFor: '做出选择、比较不同方案、评估各种可能性',
+          tips: '清晰地定义你的两个选择，然后比较每个选项的牌面，寻找对你更有利的方向。',
+          positions: [
+            {
+              name: '当前状况',
+              meaning: '你现在面临的情况和需要做决定的背景。'
+            },
+            {
+              name: '选择A',
+              meaning: '第一个选择的本质或特点。'
+            },
+            {
+              name: '选择A结果',
+              meaning: '选择A可能带来的结果或影响。'
+            },
+            {
+              name: '选择B',
+              meaning: '第二个选择的本质或特点。'
+            },
+            {
+              name: '选择B结果',
+              meaning: '选择B可能带来的结果或影响。'
+            }
+          ]
+        },
+        {
+          id: 9,
+          name: '关系发展',
+          description: '深入分析两人关系的牌阵，揭示双方的想法、期望以及关系的潜在发展。',
+          image: '/static/images/spread/relationship.png',
+          difficulty: 3,
+          cardCount: 6,
+          suitableFor: '深入了解关系、分析双方想法差异、预测关系发展',
+          tips: '将牌阵分为左右两部分，分别代表你和对方，中间部分则是关系本身。注意寻找双方牌面的和谐或冲突点。',
+          positions: [
+            {
+              name: '你的真实想法',
+              meaning: '你对关系的真实想法和感受。'
+            },
+            {
+              name: '你的期望',
+              meaning: '你希望从这段关系中得到什么。'
+            },
+            {
+              name: '对方真实想法',
+              meaning: '对方对关系的真实想法和感受。'
+            },
+            {
+              name: '对方的期望',
+              meaning: '对方希望从这段关系中得到什么。'
+            },
+            {
+              name: '共同基础',
+              meaning: '你们关系的基础或共同点。'
+            },
+            {
+              name: '关系发展',
+              meaning: '关系的潜在发展方向和可能性。'
+            }
+          ]
+        },
+        {
+          id: 10,
+          name: '六芒星',
+          description: '强大的六角星形布局，全面分析事业和事件的各个方面，适合复杂问题。',
+          image: '/static/images/spread/relationship.png',
           difficulty: 4,
+          cardCount: 7,
+          suitableFor: '事业分析、复杂事件评估、全面了解情况、长期规划',
+          tips: '从中心开始阅读，然后按顺时针方向阅读周围的牌。注意牌之间的相互关系和整体星形的能量流动。',
+          positions: [
+            {
+              name: '核心情况',
+              meaning: '当前情况的核心或问题的本质。'
+            },
+            {
+              name: '过去基础',
+              meaning: '过去的影响或情况的起源。'
+            },
+            {
+              name: '内在态度',
+              meaning: '你对情况的内在态度或潜意识影响。'
+            },
+            {
+              name: '目标或期望',
+              meaning: '你希望达成的目标或最佳结果。'
+            },
+            {
+              name: '外部影响',
+              meaning: '环境因素或他人的影响。'
+            },
+            {
+              name: '近期发展',
+              meaning: '情况的近期变化或短期结果。'
+            },
+            {
+              name: '最终结果',
+              meaning: '情况的长期走向或最终结果。'
+            }
+          ]
+        },
+        {
+          id: 11,
+          name: '凯尔特十字',
+          description: '最著名的塔罗牌阵之一，通过十字形布局深入分析问题的多个方面和潜在影响。这是一个古老而强大的牌阵。',
+          image: '/static/images/spread/cross.png',
+          difficulty: 5,
           cardCount: 10,
-          suitableFor: '复杂问题分析、全面了解情况、深度自我探索',
+          suitableFor: '复杂问题分析、全面了解情况、深度自我探索、重大决策',
           tips: '中央十字部分是核心，展示当前情况的本质和走向。下方的牌显示心理状态，上方的牌代表可能结果，左侧是过去，右侧是未来。最后一列从下往上阅读，显示情况的演变。',
           positions: [
             {
@@ -180,78 +444,6 @@ export default {
             {
               name: '最终结果',
               meaning: '综合所有因素后的最终可能结果。'
-            }
-          ]
-        },
-        {
-          id: 4,
-          name: '关系解读',
-          description: '专为分析两人关系设计的牌阵，帮助理解双方想法、共同点和关系发展方向。',
-          image: '/static/images/spread/relationship.png',
-          difficulty: 3,
-          cardCount: 7,
-          suitableFor: '恋爱关系分析、友谊评估、工作伙伴关系、家庭关系',
-          tips: '关注双方各自的牌与中间共同牌的关系，寻找和谐点和冲突源。前三张牌代表两个人和他们的连接，后四张展示关系动态和可能的发展。',
-          positions: [
-            {
-              name: '你的想法',
-              meaning: '代表你对这段关系的看法、态度和感受。'
-            },
-            {
-              name: '对方想法',
-              meaning: '显示对方如何看待这段关系、他们的期望和感受。'
-            },
-            {
-              name: '关系连接',
-              meaning: '两人之间的纽带、共同点或核心动力。'
-            },
-            {
-              name: '关系挑战',
-              meaning: '当前关系面临的主要问题或需要克服的障碍。'
-            },
-            {
-              name: '过去影响',
-              meaning: '过去的经历如何影响当前关系状态。'
-            },
-            {
-              name: '近期发展',
-              meaning: '关系在短期内的可能变化和发展方向。'
-            },
-            {
-              name: '长期前景',
-              meaning: '如果保持当前路径，关系的长期走向和潜力。'
-            }
-          ]
-        },
-        {
-          id: 5,
-          name: '时间展开',
-          description: '按时间顺序展开的牌阵，提供更具体的时间线指引，适合规划和长期决策。',
-          image: '/static/images/spread/timeline.png',
-          difficulty: 3,
-          cardCount: 5,
-          suitableFor: '规划未来、了解事件时间线、评估长期项目',
-          tips: '将每张牌视为特定时间点的快照，注意卡牌之间的演变和连续性。如果出现困难牌，思考那个时期可能需要做的准备和调整。',
-          positions: [
-            {
-              name: '现在',
-              meaning: '当前状况和起点。'
-            },
-            {
-              name: '一个月内',
-              meaning: '短期内可能出现的变化和机会。'
-            },
-            {
-              name: '三个月内',
-              meaning: '中期发展和需要关注的事项。'
-            },
-            {
-              name: '六个月内',
-              meaning: '较长期的趋势和转变。'
-            },
-            {
-              name: '一年内',
-              meaning: '长期结果和到达点。'
             }
           ]
         }

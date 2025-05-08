@@ -149,28 +149,70 @@
 				newMessageCount: 3,
 				readingTypes: [
 					{
-						name: '单牌占卜',
-						description: '解答简单问题',
-						cards: 1,
+						name: '时间之箭',
+						description: '回答简单的问题',
+						cards: 3,
 						image: '/static/images/reading-single.jpg'
 					},
 					{
-						name: '三牌展开',
-						description: '过去、现在、未来',
+						name: '是非问题',
+						description: '回答是非类问题',
+						cards: 2,
+						image: '/static/images/reading-three.jpg'
+					},
+					{
+						name: '圣三角',
+						description: '回答简单问题',
 						cards: 3,
 						image: '/static/images/reading-three.jpg'
 					},
 					{
-						name: '凯尔特十字',
-						description: '全面分析情况',
+						name: '钻石展开法',
+						description: '解析事件走向',
 						cards: 5,
 						image: '/static/images/reading-cross.jpg'
 					},
 					{
-						name: '关系解读',
-						description: '分析感情和关系',
+						name: '恋人金字塔',
+						description: '分析恋爱走向',
+						cards: 6,
+						image: '/static/images/reading-relationship.jpg'
+					},
+					{
+						name: '自我探索',
+						description: '认清自我处境',
+						cards: 4,
+						image: '/static/images/reading-three.jpg'
+					},
+					{
+						name: '吉普赛十字',
+						description: '分析关系走向',
+						cards: 5,
+						image: '/static/images/reading-cross.jpg'
+					},
+					{
+						name: '二选一',
+						description: '比较多种选择',
+						cards: 5,
+						image: '/static/images/reading-cross.jpg'
+					},
+					{
+						name: '关系发展',
+						description: '解析双方想法与期望',
+						cards: 6,
+						image: '/static/images/reading-relationship.jpg'
+					},
+					{
+						name: '六芒星',
+						description: '分析事业与事件走向',
 						cards: 7,
 						image: '/static/images/reading-relationship.jpg'
+					},
+					{
+						name: '凯尔特十字',
+						description: '古老而全面的牌阵',
+						cards: 10,
+						image: '/static/images/reading-cross.jpg'
 					}
 				],
 				readingHistory: [
@@ -737,7 +779,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
-		margin: 40rpx 0 30rpx;
+		margin: 30rpx 0 20rpx;
 		
 		.title {
 			font-size: 36rpx;
@@ -886,6 +928,7 @@
 	
 	.fortune-section {
 		position: relative;
+		margin-top: 25rpx;
 		
 		&::before {
 			content: '✧';
@@ -900,7 +943,7 @@
 	
 	.daily-fortune {
 		display: flex;
-		padding: 30rpx;
+		padding: 20rpx 30rpx;
 		position: relative;
 		background: linear-gradient(to bottom, rgba($color-bg-card, 1) 0%, rgba($color-bg-card, 0.95) 100%);
 		overflow: visible;
@@ -927,9 +970,9 @@
 		
 		.fortune-card {
 			width: 180rpx;
-			height: 300rpx;
+			height: 270rpx;
 			position: relative;
-			margin-bottom: 15rpx;
+			margin-bottom: 12rpx;
 			transform: perspective(800px) rotateY(5deg);
 			transition: transform 0.3s ease;
 			
@@ -1007,15 +1050,15 @@
 			.fortune-keyword {
 				font-size: 26rpx;
 				color: $color-primary;
-				margin-bottom: 20rpx;
+				margin-bottom: 10rpx;
 				font-weight: 500;
 			}
 			
 			.fortune-description {
 				font-size: 28rpx;
 				flex: 1;
-				margin-bottom: 30rpx;
-				line-height: 1.6;
+				margin-bottom: 20rpx;
+				line-height: 1.5;
 				position: relative;
 				
 				&::first-letter {
@@ -1030,23 +1073,24 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		padding: 60rpx 30rpx;
+		justify-content: flex-start;
+		padding: 20rpx 30rpx 30rpx;
 		position: relative;
 		background: linear-gradient(to bottom, rgba($color-bg-card, 1) 0%, rgba($color-bg-card, 0.95) 100%);
 		
 		.mystic-symbol {
 			position: absolute;
-			top: 20rpx;
-			font-size: 28rpx;
+			top: 10rpx;
+			font-size: 24rpx;
 			color: $color-accent;
 			opacity: 0.7;
 		}
 		
 		.empty-fortune-img {
-			width: 180rpx;
-			height: 180rpx;
-			margin-bottom: 30rpx;
+			width: 130rpx;
+			height: 130rpx;
+			margin-bottom: 10rpx;
+			margin-top: 8rpx;
 			opacity: 0.8;
 			filter: drop-shadow(0 0 8rpx rgba($color-primary, 0.3));
 			animation: float 4s ease-in-out infinite;
@@ -1054,14 +1098,15 @@
 		
 		.empty-fortune-title {
 			font-size: 32rpx;
-			margin-bottom: 16rpx;
+			margin-bottom: 8rpx;
 			font-weight: 600;
+			margin-top: -5rpx;
 		}
 		
 		.empty-fortune-text {
 			font-size: 28rpx;
 			color: $accent-silver;
-			margin-bottom: 40rpx;
+			margin-bottom: 25rpx;
 			text-align: center;
 			max-width: 80%;
 		}
