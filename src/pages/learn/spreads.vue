@@ -51,7 +51,7 @@
         </view>
         
         <view class="detail-body">
-          <image :src="activeSpread.image" mode="aspectFit" class="detail-image"></image>
+          <image :src="activeSpread.image" mode="aspectFit" class="detail-image" @tap="showFullscreenImage"></image>
           <text class="detail-description">{{activeSpread.description}}</text>
           
           <view class="position-list">
@@ -81,6 +81,13 @@
         </view>
       </view>
     </view>
+    
+    <!-- 全屏图片查看器 -->
+    <view class="fullscreen-image-viewer" v-if="isFullscreenImageVisible" @tap="hideFullscreenImage">
+      <image :src="getFullscreenImageUrl()" mode="aspectFit" class="fullscreen-image"></image>
+      <view class="fullscreen-close">×</view>
+      <view class="image-hint">点击任意位置关闭</view>
+    </view>
   </view>
 </template>
 
@@ -90,12 +97,13 @@ export default {
   data() {
     return {
       activeSpread: null,
+      isFullscreenImageVisible: false,
       spreads: [
         {
           id: 1,
           name: '时间之箭',
           description: '简单而有效的牌阵，帮助回答各种简单问题，呈现过去、现在和未来的时间线。',
-          image: '/static/images/spread/single.png',
+          image: '/static/images/spread/Time Arrow.png',
           difficulty: 1,
           cardCount: 3,
           suitableFor: '日常决策、简单问题、了解事件发展、新手入门',
@@ -119,7 +127,7 @@ export default {
           id: 2,
           name: '是非问题',
           description: '专门设计用来回答是非类问题的简单牌阵，通过两张牌对比提供清晰答案。',
-          image: '/static/images/spread/three-card.png',
+          image: '/static/images/spread/YesNo Questions.png',
           difficulty: 1,
           cardCount: 2,
           suitableFor: '简单的是非问题、二选一决策、需要明确方向的情况',
@@ -139,7 +147,7 @@ export default {
           id: 3,
           name: '圣三角',
           description: '三张牌形成的三角形布局，从不同维度回答问题，提供深入的洞察。',
-          image: '/static/images/spread/three-card.png',
+          image: '/static/images/spread/Sacred Triangle.png',
           difficulty: 2,
           cardCount: 3,
           suitableFor: '多维度分析问题、寻求全面的解决方案、平衡不同因素',
@@ -163,7 +171,7 @@ export default {
           id: 4,
           name: '钻石展开法',
           description: '钻石形状的布局，专注于事件的发展走向，帮助理解事件的完整脉络。',
-          image: '/static/images/spread/cross.png',
+          image: '/static/images/spread/Diamond Spread.png',
           difficulty: 3,
           cardCount: 5,
           suitableFor: '分析事件发展、了解项目走向、评估长期计划',
@@ -195,7 +203,7 @@ export default {
           id: 5,
           name: '恋人金字塔',
           description: '金字塔形布局，专为恋情分析设计，帮助理解爱情关系的各个层面。',
-          image: '/static/images/spread/relationship.png',
+          image: '/static/images/spread/Lovers Pyramid.png',
           difficulty: 3,
           cardCount: 6,
           suitableFor: '分析恋爱关系、了解爱情走向、评估感情发展可能性',
@@ -231,7 +239,7 @@ export default {
           id: 6,
           name: '自我探索',
           description: '帮助认清自己在当前处境中的位置，加深自我认知和理解。',
-          image: '/static/images/spread/timeline.png',
+          image: '/static/images/spread/Self-Exploration.png',
           difficulty: 2,
           cardCount: 4,
           suitableFor: '自我反思、处境分析、个人成长、明确方向',
@@ -259,7 +267,7 @@ export default {
           id: 7,
           name: '吉普赛十字',
           description: '传统的十字形布局，专注于人际关系的分析，揭示关系的多个维度。',
-          image: '/static/images/spread/cross.png',
+          image: '/static/images/spread/Gypsy Cross.png',
           difficulty: 3,
           cardCount: 5,
           suitableFor: '分析各类人际关系、了解关系动态、解决关系冲突',
@@ -291,7 +299,7 @@ export default {
           id: 8,
           name: '二选一',
           description: '帮助在多个选择间做决定的牌阵，比较不同选项的结果和影响。',
-          image: '/static/images/spread/timeline.png',
+          image: '/static/images/spread/Choose One of Two.png',
           difficulty: 2,
           cardCount: 5,
           suitableFor: '做出选择、比较不同方案、评估各种可能性',
@@ -323,7 +331,7 @@ export default {
           id: 9,
           name: '关系发展',
           description: '深入分析两人关系的牌阵，揭示双方的想法、期望以及关系的潜在发展。',
-          image: '/static/images/spread/relationship.png',
+          image: '/static/images/spread/Relationship Development.png',
           difficulty: 3,
           cardCount: 6,
           suitableFor: '深入了解关系、分析双方想法差异、预测关系发展',
@@ -359,7 +367,7 @@ export default {
           id: 10,
           name: '六芒星',
           description: '强大的六角星形布局，全面分析事业和事件的各个方面，适合复杂问题。',
-          image: '/static/images/spread/relationship.png',
+          image: '/static/images/spread/Six-Pointed Star.png',
           difficulty: 4,
           cardCount: 7,
           suitableFor: '事业分析、复杂事件评估、全面了解情况、长期规划',
@@ -399,7 +407,7 @@ export default {
           id: 11,
           name: '凯尔特十字',
           description: '最著名的塔罗牌阵之一，通过十字形布局深入分析问题的多个方面和潜在影响。这是一个古老而强大的牌阵。',
-          image: '/static/images/spread/cross.png',
+          image: '/static/images/spread/Celtic Cross.png',
           difficulty: 5,
           cardCount: 10,
           suitableFor: '复杂问题分析、全面了解情况、深度自我探索、重大决策',
@@ -463,9 +471,27 @@ export default {
     startReading() {
       if (this.activeSpread) {
         uni.navigateTo({
-          url: `/pages/reading/prepare?spreadId=${this.activeSpread.id}&spreadName=${encodeURIComponent(this.activeSpread.name)}&cardCount=${this.activeSpread.cardCount}`
+          url: `/pages/reading/prepare?type=${encodeURIComponent(this.activeSpread.name)}&cards=${this.activeSpread.cardCount}`
         });
       }
+    },
+    showFullscreenImage() {
+      this.isFullscreenImageVisible = true;
+    },
+    hideFullscreenImage() {
+      this.isFullscreenImageVisible = false;
+    },
+    getFullscreenImageUrl() {
+      if (!this.activeSpread) return '';
+      
+      // 获取当前图片路径
+      const currentImgPath = this.activeSpread.image;
+      
+      // 构建高清图片路径 - 使用bak2中的高清图
+      const filename = currentImgPath.split('/').pop();
+      const hdImagePath = `/static/images/spread/bak2/${filename}`;
+      
+      return hdImagePath;
     }
   }
 }
@@ -744,5 +770,83 @@ export default {
   position: absolute;
   font-size: 40rpx;
   color: rgba($color-primary, 0.4);
+}
+
+/* 全屏图片查看器样式 */
+.fullscreen-image-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  animation: fade-in 0.3s ease;
+}
+
+.fullscreen-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  animation: scale-in 0.3s ease;
+}
+
+.fullscreen-close {
+  position: absolute;
+  top: 30rpx;
+  right: 30rpx;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50rpx;
+  font-weight: 200;
+}
+
+.image-hint {
+  position: absolute;
+  bottom: 50rpx;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 24rpx;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* 添加图片点击效果 */
+.detail-image {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
 }
 </style> 

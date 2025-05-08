@@ -26,7 +26,11 @@
             <view class="card-back card-4"></view>
             <view class="card-back card-5"></view>
             <view class="card-back card-6"></view>
+            <view class="card-back card-7"></view>
+            <view class="card-back card-8"></view>
             <view class="mystic-glow"></view>
+            <view class="mystic-glow glow-2"></view>
+            <view class="mystic-particles"></view>
           </view>
         </view>
         
@@ -62,6 +66,7 @@
         <view class="stage-info">
           <text class="stage-title">请抽取{{cardCount}}张牌</text>
           <text class="stage-description">点击卡牌翻开查看</text>
+          <button class="btn-flip-all" @tap="flipAllCards" v-if="!allCardsFlipped">一键翻开全部</button>
         </view>
       </view>
       
@@ -151,7 +156,7 @@ export default {
     startShuffleAnimation() {
       // 设置进度条增长
       this.shuffleTimer = setInterval(() => {
-        this.shuffleProgress += 3.33; // 3秒完成
+        this.shuffleProgress += 1.67; // 6秒完成
         if (this.shuffleProgress >= 100) {
           clearInterval(this.shuffleTimer);
           // 自动进入抽牌阶段
@@ -461,6 +466,29 @@ export default {
     flipCard(index) {
       if (this.currentStage === 'draw' && !this.cards[index].flipped) {
         this.cards[index].flipped = true;
+        
+        // 添加卡牌翻开时的振动反馈
+        if (uni.vibrateShort) {
+          uni.vibrateShort();
+        }
+      }
+    },
+    flipAllCards() {
+      // 一键翻开所有卡牌
+      if (this.currentStage === 'draw') {
+        // 使用延迟依次翻开每张牌，产生顺序翻开的效果
+        this.cards.forEach((card, index) => {
+          setTimeout(() => {
+            if (!card.flipped) {
+              this.cards[index].flipped = true;
+            }
+          }, index * 300); // 每隔300毫秒翻开一张牌
+        });
+        
+        // 添加翻开所有卡牌时的振动反馈
+        if (uni.vibrateLong) {
+          uni.vibrateLong();
+        }
       }
     },
     showInterpretation() {
@@ -645,10 +673,43 @@ export default {
           animation-delay: 1s;
           animation-duration: 3.3s;
         }
+
+        &.card-7 {
+          animation-delay: 0.5s;
+          animation-duration: 3.0s;
+        }
+        
+        &.card-8 {
+          animation-delay: 1.2s;
+          animation-duration: 2.6s;
+        }
       }
       
       .mystic-glow {
         animation: glow-pulse 2s infinite;
+        
+        &.glow-2 {
+          animation: glow-pulse 3s infinite reverse;
+          background: radial-gradient(circle, rgba(255, 215, 0, 0.5) 0%, rgba(255, 215, 0, 0) 70%);
+          top: -30rpx;
+          left: 30rpx;
+        }
+      }
+
+      .mystic-particles {
+        position: absolute;
+        width: 400rpx;
+        height: 400rpx;
+        top: -20rpx;
+        left: -80rpx;
+        z-index: 5;
+        pointer-events: none;
+        background-image: 
+          radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+          radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+          radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+        background-size: 12px 12px, 8px 8px, 6px 6px;
+        animation: particles-float 6s infinite linear;
       }
     }
     
@@ -683,6 +744,14 @@ export default {
       
       &.card-6 {
         transform: translateZ(10px);
+      }
+
+      &.card-7 {
+        transform: translateZ(12px);
+      }
+      
+      &.card-8 {
+        transform: translateZ(14px);
       }
     }
     
@@ -741,6 +810,27 @@ export default {
   100% { opacity: 0.4; transform: scale(0.8); }
 }
 
+@keyframes particles-float {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    background-position: -50px 50px, -25px 25px, -10px 10px;
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    background-position: -100px 100px, -50px 50px, -20px 20px;
+    opacity: 0.5;
+  }
+}
+
 .spread-container {
   display: flex;
   flex-wrap: wrap;
@@ -777,7 +867,7 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.8s;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
   }
   
@@ -796,6 +886,16 @@ export default {
   
   &-front {
     background: url('/static/images/tarot/back/card-back.png') no-repeat center/cover;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.1) 100%);
+      border-radius: 12rpx;
+    }
   }
   
   &-back {
@@ -940,6 +1040,48 @@ export default {
     background-color: transparent;
     border: 1px solid $color-primary;
     color: $color-primary;
+  }
+}
+
+.btn-flip-all {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: white;
+  background: linear-gradient(135deg, $color-primary, $color-accent);
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba($color-primary, 0.4);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: rotate(45deg);
+    animation: btn-shine 3s infinite;
+  }
+  
+  &:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 2rpx 6rpx rgba($color-primary, 0.4);
+  }
+}
+
+@keyframes btn-shine {
+  0% { 
+    left: -100%; 
+  }
+  20% { 
+    left: 100%; 
+  }
+  100% { 
+    left: 100%; 
   }
 }
 </style> 

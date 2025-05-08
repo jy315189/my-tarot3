@@ -49,13 +49,13 @@
           <text class="card-count">{{cardCount}}张牌</text>
         </view>
         
-        <view class="reading-description">
-          <text>{{getReadingDescription()}}</text>
-        </view>
-        
         <view class="reading-image">
           <image :src="getReadingImage()" mode="aspectFit" class="spread-diagram"></image>
-     
+          <view class="image-glow"></view>
+        </view>
+        
+        <view class="reading-description">
+          <text>{{getReadingDescription()}}</text>
         </view>
         
         <view class="change-type">
@@ -95,67 +95,67 @@ export default {
           name: '时间之箭',
           description: '揭示过去、现在和未来的发展脉络，帮助理解事件走向',
           cards: 3,
-          image: '/static/images/spread/single.png'
+          image: '/static/images/spread/Time Arrow.png'
         },
         {
           name: '是非问题',
           description: '通过两张牌的对比，为是与否的决策提供清晰指引',
           cards: 2,
-          image: '/static/images/spread/three.png'
+          image: '/static/images/spread/YesNo Questions.png'
         },
         {
           name: '圣三角',
           description: '从问题本质、挑战和解决方案三个维度全面分析',
           cards: 3,
-          image: '/static/images/spread/three.png'
+          image: '/static/images/spread/Sacred Triangle.png'
         },
         {
           name: '钻石展开法',
           description: '深度剖析事件的起因、影响和最终走向，洞察完整发展',
           cards: 5,
-          image: '/static/images/spread/cross.png'
+          image: '/static/images/spread/Diamond Spread.png'
         },
         {
           name: '恋人金字塔',
           description: '探索双方感受和共同基础，预测恋情可能的发展方向',
           cards: 6,
-          image: '/static/images/spread/relationship.png'
+          image: '/static/images/spread/Lovers Pyramid.png'
         },
         {
           name: '自我探索',
           description: '照见真实的自己，探索内在动力和潜在的成长方向',
           cards: 4,
-          image: '/static/images/spread/three.png'
+          image: '/static/images/spread/Self-Exploration.png'
         },
         {
           name: '吉普赛十字',
           description: '分析双方在关系中的位置，揭示关系核心和可能走向',
           cards: 5,
-          image: '/static/images/spread/cross.png'
+          image: '/static/images/spread/Gypsy Cross.png'
         },
         {
           name: '二选一',
           description: '对比分析两种选择的本质和可能结果，辅助重要决策',
           cards: 5,
-          image: '/static/images/spread/cross.png'
+          image: '/static/images/spread/Choose One of Two.png'
         },
         {
           name: '关系发展',
           description: '深入理解双方真实想法与期望，预测关系潜在发展',
           cards: 6,
-          image: '/static/images/spread/relationship.png'
+          image: '/static/images/spread/Relationship Development.png'
         },
         {
           name: '六芒星',
           description: '全面解析复杂事业和项目，探究多种影响因素和长期走向',
           cards: 7,
-          image: '/static/images/spread/relationship.png'
+          image: '/static/images/spread/Six-Pointed Star.png'
         },
         {
           name: '凯尔特十字',
           description: '古老强大的综合牌阵，多维度深入剖析重大问题和人生方向',
           cards: 10,
-          image: '/static/images/spread/cross.png'
+          image: '/static/images/spread/Celtic Cross.png'
         }
       ]
     }
@@ -173,6 +173,16 @@ export default {
     if (options.cards) {
       this.cardCount = parseInt(options.cards);
     }
+    if (options.spreadName) {
+      this.readingType = decodeURIComponent(options.spreadName);
+      // Find the card count from readingTypes if not provided
+      if (!options.cards) {
+        const spread = this.readingTypes.find(item => item.name === this.readingType);
+        if (spread) {
+          this.cardCount = spread.cards;
+        }
+      }
+    }
   },
   methods: {
     goBack() {
@@ -182,10 +192,10 @@ export default {
       // 查找当前选择的牌阵
       const selectedReading = this.readingTypes.find(item => item.name === this.readingType);
       if (selectedReading) {
-        return selectedReading.description + '\n\n请选择一种占卜方式，每种方式适合不同的问题和情境。';
+        return selectedReading.description;
       }
       
-      return '请选择一种占卜方式，每种方式适合不同的问题和情境。';
+      return '';
     },
     getReadingImage() {
       // 查找当前选择的牌阵
@@ -396,25 +406,17 @@ export default {
     }
   }
   
-  .reading-description {
-    font-size: 28rpx;
-    color: $color-text-secondary;
-    line-height: 1.6;
-    margin-bottom: 30rpx;
-    white-space: pre-line;
-  }
-  
   .reading-image {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20rpx 0 30rpx;
+    margin: 0 0 30rpx;
     position: relative;
-    height: 220rpx;
+    height: 320rpx;
     
     .spread-diagram {
       width: 100%;
-      height: 200rpx;
+      height: 100%;
       object-fit: contain;
       position: relative;
       z-index: 1;
@@ -431,6 +433,14 @@ export default {
       background: radial-gradient(circle, rgba($color-primary, 0.2), transparent 70%);
       z-index: 0;
     }
+  }
+  
+  .reading-description {
+    font-size: 28rpx;
+    color: $color-text-secondary;
+    line-height: 1.6;
+    margin-bottom: 30rpx;
+    white-space: pre-line;
   }
   
   .change-type {
