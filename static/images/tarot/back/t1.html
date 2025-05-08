@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarot Shuffle Animation</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #1a1525 0%, #0d0d1a 100%);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-container {
+      position: relative;
+      width: 600px;
+      height: 600px;
+    }
+
+    .card {
+      position: absolute;
+      width: 182px;
+      height: 301px;
+      background-image: url('card-back.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      transform-origin: center center;
+      animation: rotate-in 3s ease-in-out forwards;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: inherit;
+      background-size: cover;
+      border-radius: 10px;
+      animation: self-spin 3s linear forwards;
+    }
+
+    .card:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .card:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    .card:nth-child(4) {
+      animation-delay: 0.6s;
+    }
+    .card:nth-child(5) {
+      animation-delay: 0.8s;
+    }
+
+    @keyframes rotate-in {
+      0% {
+        transform: rotate(0deg) translate(250px) rotate(0deg);
+        opacity: 0;
+      }
+      100% {
+        transform: rotate(360deg) translate(0px) rotate(-360deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes self-spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="card-container">
+      <div class="card" v-for="n in 5" :key="n"></div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

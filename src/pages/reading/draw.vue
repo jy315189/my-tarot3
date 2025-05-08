@@ -18,20 +18,8 @@
     <view class="content">
       <!-- 洗牌阶段 -->
       <view class="stage shuffle" v-if="currentStage === 'shuffle'">
-        <view class="deck-container">
-          <view class="deck" :class="{'shuffling': isShuffling}">
-            <view class="card-back card-1"></view>
-            <view class="card-back card-2"></view>
-            <view class="card-back card-3"></view>
-            <view class="card-back card-4"></view>
-            <view class="card-back card-5"></view>
-            <view class="card-back card-6"></view>
-            <view class="card-back card-7"></view>
-            <view class="card-back card-8"></view>
-            <view class="mystic-glow"></view>
-            <view class="mystic-glow glow-2"></view>
-            <view class="mystic-particles"></view>
-          </view>
+        <view class="card-container">
+          <view class="card" v-for="n in 5" :key="n"></view>
         </view>
         
         <view class="stage-info">
@@ -116,7 +104,7 @@ export default {
       cardCount: 1,
       question: '',
       currentStage: 'shuffle',  // shuffle, draw, interpret
-      isShuffling: true,
+      isShuffling: false,  // Removing this since we're using a different animation approach
       shuffleProgress: 0,
       shuffleTimer: null,
       cards: [],
@@ -603,8 +591,8 @@ export default {
     .stage-description {
       font-size: 28rpx;
       color: $color-text-secondary;
-      margin-bottom: 20rpx;
       display: block;
+      margin-bottom: 20rpx;
     }
     
     .progress-bar {
@@ -1083,5 +1071,91 @@ export default {
   100% { 
     left: 100%; 
   }
+}
+
+/* 洗牌阶段样式 */
+.shuffle {
+  .card-container {
+    position: relative;
+    width: 600rpx;
+    height: 600rpx;
+    margin: 50rpx auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    position: absolute;
+    width: 182rpx;
+    height: 301rpx;
+    background-image: url('/static/images/tarot/back/card-back.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10rpx;
+    box-shadow: 0 0 30rpx rgba(255, 255, 255, 0.2);
+    transform-origin: center center;
+    animation: rotate-in 3s ease-in-out forwards;
+    top: 150rpx;
+    left: 210rpx;
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: inherit;
+    background-size: cover;
+    border-radius: 10rpx;
+    animation: self-spin 3s linear forwards;
+  }
+
+  .card:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .card:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .card:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  .card:nth-child(5) {
+    animation-delay: 0.8s;
+  }
+}
+
+@keyframes rotate-in {
+  0% {
+    transform: rotate(0deg) translate(250rpx) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(360deg) translate(0px) rotate(-360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes self-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spread-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 400rpx;
 }
 </style> 

@@ -198,14 +198,32 @@ export default {
   .card-image-container {
     width: 240rpx;
     height: 400rpx;
-    border-radius: 12rpx;
+    border-radius: 16rpx;
     overflow: hidden;
-    box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.3);
+    border: 2rpx solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      pointer-events: none;
+    }
     
     .card-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
     }
   }
   
@@ -214,18 +232,24 @@ export default {
     padding-left: 30rpx;
     
     .card-title {
-      margin-bottom: 15rpx;
+      margin-bottom: 20rpx;
       
       .card-name {
-        font-size: 40rpx;
+        font-size: 44rpx;
         font-weight: 600;
         color: $color-text;
         margin-right: 15rpx;
+        background: linear-gradient(to right, $color-primary, $color-accent);
+        -webkit-background-clip: text;
+        color: transparent;
+        display: inline-block;
+        text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
       }
       
       .card-number {
         font-size: 32rpx;
         color: $color-primary;
+        opacity: 0.9;
       }
     }
     
@@ -234,10 +258,14 @@ export default {
       color: $color-text-secondary;
       margin-bottom: 20rpx;
       display: block;
+      font-style: italic;
     }
     
     .card-attributes {
-      margin-top: 20rpx;
+      margin-top: 25rpx;
+      background: rgba(255,255,255,0.1);
+      padding: 16rpx;
+      border-radius: 12rpx;
       
       .attribute {
         display: flex;
@@ -251,81 +279,103 @@ export default {
         
         .attribute-value {
           font-size: 28rpx;
-          color: $color-text;
+          color: $color-primary;
+          font-weight: 500;
         }
       }
     }
   }
 }
 
+.meaning-section, .additional-info {
+  background: rgba(255,255,255,0.08);
+  border-radius: 16rpx;
+  padding: 25rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+  border: 1rpx solid rgba(255,255,255,0.1);
+}
+
 .section-title {
-  background-color: rgba($color-primary, 0.1);
-  padding: 15rpx 20rpx;
-  border-radius: 8rpx;
   margin-bottom: 15rpx;
   
   text {
-    font-size: 30rpx;
+    font-size: 32rpx;
     font-weight: 600;
+    color: $color-text;
+    position: relative;
+    padding-left: 20rpx;
+    display: inline-block;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8rpx;
+      height: 30rpx;
+      background: $color-primary;
+      border-radius: 4rpx;
+    }
+  }
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 25rpx;
+  
+  text {
+    background: rgba($color-primary, 0.15);
     color: $color-primary;
+    padding: 8rpx 16rpx;
+    border-radius: 30rpx;
+    font-size: 26rpx;
+    margin-right: 12rpx;
+    margin-bottom: 12rpx;
   }
 }
 
-.meaning-section {
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 12rpx;
-  padding: 30rpx;
-  margin-bottom: 30rpx;
+.meaning-text {
+  margin-bottom: 25rpx;
   
-  .keywords {
-    margin-bottom: 25rpx;
-    
-    text {
-      font-size: 28rpx;
-      color: $color-text;
-      line-height: 1.6;
-    }
-  }
-  
-  .meaning-text {
-    margin-bottom: 25rpx;
-    
-    text {
-      font-size: 28rpx;
-      color: $color-text;
-      line-height: 1.8;
-    }
+  text {
+    font-size: 28rpx;
+    color: $color-text;
+    line-height: 1.6;
   }
 }
 
-.additional-info {
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 12rpx;
-  padding: 30rpx;
-  margin-bottom: 30rpx;
-  
-  .symbolism, .advice {
-    margin-bottom: 25rpx;
-    
-    text {
-      font-size: 28rpx;
-      color: $color-text;
-      line-height: 1.8;
-    }
+.symbolism, .advice {
+  text {
+    font-size: 28rpx;
+    color: $color-text;
+    line-height: 1.6;
   }
 }
 
 .footer {
-  margin-top: 40rpx;
+  display: flex;
+  justify-content: center;
   
   .btn {
-    width: 100%;
+    width: 80%;
     height: 90rpx;
     line-height: 90rpx;
-    background-color: $color-primary;
+    background: linear-gradient(to right, $color-primary, $color-accent);
     color: white;
     font-size: 32rpx;
-    border-radius: 10rpx;
+    border-radius: 45rpx;
+    box-shadow: 0 6rpx 12rpx rgba($color-primary, 0.3);
+    text-align: center;
+    letter-spacing: 2rpx;
+    transition: all 0.3s ease;
+    
+    &:active {
+      transform: translateY(2rpx);
+      box-shadow: 0 2rpx 6rpx rgba($color-primary, 0.3);
+    }
   }
 }
 
@@ -334,11 +384,31 @@ export default {
   position: absolute;
   border-radius: 50%;
   border: 1px solid rgba($color-primary, 0.3);
+  animation: rotate 60s linear infinite;
 }
 
 .mystic-star {
   position: absolute;
   font-size: 40rpx;
   color: rgba($color-primary, 0.4);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 </style> 
