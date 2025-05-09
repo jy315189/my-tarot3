@@ -23,9 +23,9 @@
 			</view>
 		</view>
 		
-		<!-- 塔罗牌选择模式 -->
-		<view class="section-title">
-			<text class="title mystic">塔罗占卜</text>
+		<!-- 塔罗占卜 -->
+		<view class="section-title section-spacing">
+			<text class="title fancy-title">塔罗占卜</text>
 			<text class="subtitle">选择一种占卜方式</text>
 		</view>
 		
@@ -40,67 +40,57 @@
 			</view>
 		</scroll-view>
 		
-		<!-- 最近解读记录 -->
-		<view class="section-title">
-			<text class="title">历史解读</text>
-			<text class="view-all" @tap="viewAllReadings">查看全部</text>
-		</view>
-		
-		<view class="history-list" v-if="readingHistory.length > 0">
-			<view class="history-item card" v-for="(item, index) in readingHistory" :key="index" @tap="viewReadingDetail(item)">
-				<view class="history-date">
-					<text class="day">{{formatDay(item.date)}}</text>
-					<text class="month">{{formatMonth(item.date)}}</text>
-				</view>
-				<view class="history-info">
-					<text class="history-name">{{item.type}}</text>
-					<text class="history-question">{{item.question}}</text>
-				</view>
-				<view class="history-icon">
-					<text class="text-primary">✧</text>
-				</view>
-			</view>
-		</view>
-		
-		<view class="empty-history card" v-else>
-			<image class="empty-icon" src="/static/images/empty-readings.png" mode="aspectFit"></image>
-			<text class="empty-text">暂无占卜历史记录</text>
-		</view>
-		
 		<!-- 今日运势 -->
-		<view class="section-title fortune-section">
-			<text class="title">今日运势</text>
+		<view class="section-title fortune-section section-spacing">
+			<text class="title fancy-title">今日运势</text>
 			<text class="subtitle">{{todayDate}}</text>
 		</view>
 		
 		<view class="daily-fortune card" v-if="hasDailyFortune">
-			<view class="fortune-card-container">
-				<view class="fortune-card">
-					<image class="card-image" :src="dailyCard.image" mode="aspectFill"></image>
-					<view class="card-glow"></view>
+			<view class="fortune-layout">
+				<view class="fortune-card-container">
+					<view class="fortune-card">
+						<image class="card-image" :src="dailyCard.image" mode="aspectFill"></image>
+						<view class="card-glow"></view>
+					</view>
+					<text class="fortune-card-name mystic">{{dailyCard.name}}</text>
+					<view class="card-position">正位</view>
 				</view>
-				<text class="fortune-card-name mystic">{{dailyCard.name}}</text>
-				<view class="card-position">正位</view>
-			</view>
-			<view class="fortune-divider"></view>
-			<view class="fortune-info">
-				<text class="fortune-title mystic">{{dailyCard.name}}</text>
-				<text class="fortune-keyword">关键词: {{dailyCard.keywords}}</text>
-				<text class="fortune-description">{{dailyCard.description}}</text>
-				<button class="btn btn-secondary" @tap="readDailyFortune">查看详解</button>
+				<view class="fortune-divider"></view>
+				<view class="fortune-info">
+					<text class="fortune-title mystic">{{dailyCard.name}}</text>
+					<text class="fortune-keyword">关键词: {{dailyCard.keywords}}</text>
+					<text class="fortune-description">{{dailyCard.description}}</text>
+				</view>
 			</view>
 		</view>
 		
 		<view class="daily-fortune-empty card" v-else>
 			<view class="mystic-symbol">✧</view>
-			<image class="empty-fortune-img" src="/static/images/decorations/fortune-empty.png" mode="aspectFit"></image>
 			<text class="empty-fortune-title mystic">神秘的今日运势</text>
 			<text class="empty-fortune-text">通过塔罗牌揭示今天的能量与指引</text>
-			<button class="btn btn-primary fortune-btn" @tap="drawDailyFortune">探索今日运势</button>
+			<button class="btn btn-primary gradient-btn pulse-effect" @tap="drawDailyFortune">探索今日运势</button>
 		</view>
 		
 		<!-- 今日运势测试按钮 -->
 		<button v-if="hasDailyFortune" class="btn btn-text test-btn-fixed" @tap="resetDailyFortune">重新测试运势</button>
+		
+		<!-- 热点问题 -->
+		<view class="section-title section-spacing">
+			<text class="title fancy-title">热点问题</text>
+			<text class="subtitle">用户关注的热门占卜主题</text>
+		</view>
+		
+		<view class="hot-topics">
+			<view class="hot-topic-item card" v-for="(topic, index) in hotTopics" :key="index" @tap="selectHotTopic(topic)">
+				<view class="hot-topic-icon" :class="topic.iconClass">{{topic.icon}}</view>
+				<view class="hot-topic-info">
+					<text class="hot-topic-name">{{topic.name}}</text>
+					<text class="hot-topic-desc">{{topic.description}}</text>
+				</view>
+				<view class="hot-topic-arrow pulse-light">→</view>
+			</view>
+		</view>
 		
 		<!-- 抽牌动画层 -->
 		<view class="card-draw-overlay" v-if="isDrawing">
@@ -108,7 +98,7 @@
 				<view class="mystic-star" v-for="i in 20" :key="i" :style="getRandomStarStyle()">✦</view>
 			</view>
 			<view class="card-draw-container">
-				<view class="card-deck" @tap="completeCardDraw">
+				<view class="card-deck pulse-glow" @tap="completeCardDraw">
 					<image class="card-back" src="/static/images/tarot/back/card-back.png" @error="useDefaultCardBack"></image>
 					<view class="deck-glow"></view>
 				</view>
@@ -132,7 +122,7 @@
 		</view>
 		
 		<!-- 占卜按钮 -->
-		<button class="fab btn-primary" @tap="startNewReading">
+		<button class="fab btn-primary gradient-btn pulse-effect" @tap="startNewReading">
 			<text class="fab-icon">✦</text>
 			<text class="fab-text">开始占卜</text>
 		</button>
@@ -150,69 +140,101 @@
 				readingTypes: [
 					{
 						name: '时间之箭',
-						description: '揭示过去、现在和未来的发展脉络，帮助理解事件走向',
+						description: '过去·现在·未来',
 						cards: 3,
 						image: '/static/images/spread/Time Arrow.png'
 					},
 					{
 						name: '是非问题',
-						description: '可以回答一些是非问题，通过三张牌的组合揭示答案倾向',
+						description: '分析·判断',
 						cards: 3,
 						image: '/static/images/spread/YesNo Questions.png'
 					},
 					{
 						name: '圣三角',
-						description: '可以回答一些简单问题，从三个维度全面分析',
+						description: '全面·简洁',
 						cards: 3,
 						image: '/static/images/spread/Sacred Triangle.png'
 					},
 					{
 						name: '钻石展开法',
-						description: '可以回答一些事件走向类的问题，剖析事件的完整发展',
+						description: '事件·结果',
 						cards: 5,
 						image: '/static/images/spread/Diamond Spread.png'
 					},
 					{
 						name: '恋人金字塔',
-						description: '可以回答一些恋爱走向问题，预测恋情可能的发展方向',
+						description: '感情·发展',
 						cards: 6,
 						image: '/static/images/spread/Lovers Pyramid.png'
 					},
 					{
 						name: '自我探索',
-						description: '在某些处境下认清自己，探索内在动力和潜在的成长方向',
+						description: '内在·成长',
 						cards: 4,
 						image: '/static/images/spread/Self-Exploration.png'
 					},
 					{
 						name: '吉普赛十字',
-						description: '可以回答关系走向问题，揭示关系核心和可能走向',
+						description: '关系·走向',
 						cards: 5,
 						image: '/static/images/spread/Gypsy Cross.png'
 					},
 					{
 						name: '二选一',
-						description: '可以回答并比较一些多种选择问题，辅助重要决策',
+						description: '对比·选择',
 						cards: 5,
 						image: '/static/images/spread/Choose One of Two.png'
 					},
 					{
 						name: '关系发展',
-						description: '可以回答一些双方想法与期望，预测关系潜在发展',
+						description: '期望·预测',
 						cards: 6,
 						image: '/static/images/spread/Relationship Development.png'
 					},
 					{
 						name: '六芒星',
-						description: '可以回答一些事业事件走向类的问题，全面解析复杂项目',
+						description: '事业·解析',
 						cards: 7,
 						image: '/static/images/spread/Six-Pointed Star.png'
 					},
 					{
 						name: '凯尔特十字',
-						description: '古老的牌阵，多维度深入剖析重大问题和人生方向',
+						description: '深度·全面',
 						cards: 10,
 						image: '/static/images/spread/Celtic Cross.png'
+					}
+				],
+				hotTopics: [
+					{
+						name: '爱情',
+						description: '解读爱情关系中的挑战与机遇',
+						iconClass: 'love-icon',
+						icon: '❤'
+					},
+					{
+						name: '事业',
+						description: '探索事业发展中的机遇与挑战',
+						iconClass: 'career-icon',
+						icon: '💼'
+					},
+					{
+						name: '健康',
+						description: '关注身体健康与心理健康',
+						iconClass: 'health-icon',
+						icon: '🏋️‍♂️'
+					},
+					{
+						name: '财富',
+						description: '分析财富积累与理财规划',
+						iconClass: 'wealth-icon',
+						icon: '💰'
+					},
+					{
+						name: '人际关系',
+						description: '改善与家人、朋友和同事的关系',
+						iconClass: 'relationship-icon',
+						icon: '👪'
 					}
 				],
 				readingHistory: [
@@ -633,20 +655,6 @@
 				});
 			},
 			
-			// 查看所有历史记录
-			viewAllReadings() {
-				uni.navigateTo({
-					url: '/pages/reading/history'
-				});
-			},
-			
-			// 查看历史记录详情
-			viewReadingDetail(item) {
-				uni.navigateTo({
-					url: `/pages/reading/detail?id=${item.id}`
-				});
-			},
-			
 			// 查看今日运势详情
 			readDailyFortune() {
 				uni.navigateTo({
@@ -701,6 +709,14 @@
 					this.useDefaultCardBack();
 				};
 				img.src = this.cardBackImage;
+			},
+			
+			// 选择热点问题
+			selectHotTopic(topic) {
+				// 根据热点问题导航到占卜设置页面，并预先填入主题
+				uni.navigateTo({
+					url: `/pages/reading/setup?topic=${encodeURIComponent(topic.name)}`
+				});
 			}
 		}
 	}
@@ -779,34 +795,38 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
-		margin: 30rpx 0 20rpx;
+		margin: 40rpx 0 24rpx;
 		
 		.title {
-			font-size: 36rpx;
+			font-size: 32rpx;
 			font-weight: 600;
 		}
 		
 		.subtitle {
-			font-size: 26rpx;
+			font-size: 24rpx;
 			color: $accent-silver;
 		}
 		
 		.view-all {
-			font-size: 26rpx;
+			font-size: 24rpx;
 			color: $color-primary;
 		}
 	}
 	
+	.section-spacing {
+		margin-top: 60rpx;
+	}
+	
 	.reading-types {
 		white-space: nowrap;
-		margin: 0 -30rpx;
+		margin: 0 -30rpx 30rpx;
 		padding: 0 30rpx;
 		
 		.reading-type-item {
 			display: inline-flex;
 			flex-direction: column;
 			width: 260rpx;
-			margin-right: 20rpx;
+			margin-right: 24rpx;
 			overflow: hidden;
 			background: rgba($color-bg-card, 0.9);
 			
@@ -837,6 +857,11 @@
 			font-size: 24rpx;
 			color: $accent-silver;
 			display: block;
+			text-align: center;
+			font-style: italic;
+			border-top: 1px dashed rgba($color-primary, 0.2);
+			margin-top: 8rpx;
+			padding-top: 8rpx;
 		}
 		
 		.reading-type-cards {
@@ -942,11 +967,11 @@
 	}
 	
 	.daily-fortune {
-		display: flex;
-		padding: 20rpx 30rpx;
+		padding: 24rpx 30rpx;
 		position: relative;
 		background: linear-gradient(to bottom, rgba($color-bg-card, 1) 0%, rgba($color-bg-card, 0.95) 100%);
 		overflow: visible;
+		margin-bottom: 30rpx;
 		
 		&::before {
 			content: '';
@@ -959,6 +984,11 @@
 			opacity: 0.3;
 		}
 		
+		.fortune-layout {
+			display: flex;
+			align-items: stretch;
+		}
+		
 		.fortune-card-container {
 			display: flex;
 			flex-direction: column;
@@ -966,11 +996,13 @@
 			margin-right: 30rpx;
 			position: relative;
 			z-index: 1;
+			width: 160rpx;
+			flex-shrink: 0;
 		}
 		
 		.fortune-card {
-			width: 180rpx;
-			height: 270rpx;
+			width: 150rpx;
+			height: 220rpx;
 			position: relative;
 			margin-bottom: 12rpx;
 			transform: perspective(800px) rotateY(5deg);
@@ -1002,26 +1034,26 @@
 		}
 		
 		.fortune-card-name {
-			font-size: 24rpx;
+			font-size: 22rpx;
 			text-align: center;
 			margin-top: 8rpx;
 			font-weight: 500;
 		}
 		
 		.card-position {
-			font-size: 22rpx;
+			font-size: 20rpx;
 			color: $color-accent;
 			background: rgba($color-bg, 0.6);
-			padding: 4rpx 12rpx;
+			padding: 2rpx 10rpx;
 			border-radius: 20rpx;
-			margin-top: 6rpx;
+			margin-top: 4rpx;
 		}
 		
 		.fortune-divider {
 			width: 1px;
 			align-self: stretch;
 			background: linear-gradient(to bottom, transparent, rgba($color-primary, 0.3), transparent);
-			margin: 0 20rpx 0 10rpx;
+			margin: 0 20rpx 0 5rpx;
 		}
 		
 		.fortune-info {
@@ -1030,6 +1062,7 @@
 			flex-direction: column;
 			padding-left: 10rpx;
 			position: relative;
+			justify-content: center;
 			
 			&::before {
 				content: '';
@@ -1043,22 +1076,21 @@
 			}
 			
 			.fortune-title {
-				font-size: 36rpx;
-				margin-bottom: 15rpx;
+				font-size: 32rpx;
+				margin-bottom: 10rpx;
 			}
 			
 			.fortune-keyword {
 				font-size: 26rpx;
 				color: $color-primary;
-				margin-bottom: 10rpx;
+				margin-bottom: 12rpx;
 				font-weight: 500;
 			}
 			
 			.fortune-description {
-				font-size: 28rpx;
-				flex: 1;
-				margin-bottom: 20rpx;
-				line-height: 1.5;
+				font-size: 26rpx;
+				line-height: 1.6;
+				margin-bottom: 0;
 				position: relative;
 				
 				&::first-letter {
@@ -1093,7 +1125,6 @@
 			margin-top: 8rpx;
 			opacity: 0.8;
 			filter: drop-shadow(0 0 8rpx rgba($color-primary, 0.3));
-			animation: float 4s ease-in-out infinite;
 		}
 		
 		.empty-fortune-title {
@@ -1242,17 +1273,6 @@
 		z-index: -1;
 	}
 	
-	@keyframes pulse-strong {
-		0% {
-			opacity: 0.5;
-			box-shadow: 0 0 20rpx 5rpx rgba($color-primary, 0.5);
-		}
-		100% {
-			opacity: 1;
-			box-shadow: 0 0 40rpx 10rpx rgba($color-primary, 0.8);
-		}
-	}
-	
 	.card-back {
 		width: 100%;
 		height: 100%;
@@ -1267,15 +1287,6 @@
 		text-align: center;
 		text-shadow: 0 0 10rpx rgba($color-primary, 0.8);
 		animation: pulse-text 2s infinite alternate;
-	}
-	
-	@keyframes pulse-text {
-		0% {
-			opacity: 0.7;
-		}
-		100% {
-			opacity: 1;
-		}
 	}
 	
 	.flying-card {
@@ -1298,43 +1309,6 @@
 			background-color: rgba($color-primary, 0.8);
 			border-radius: 50%;
 			animation: sparkle-out 1s ease-out forwards;
-		}
-	}
-	
-	@keyframes sparkle-out {
-		0% {
-			transform: scale(0);
-			opacity: 1;
-		}
-		100% {
-			transform: scale(3);
-			opacity: 0;
-		}
-	}
-	
-	.card-magic {
-		&::before {
-			content: '';
-			position: absolute;
-			top: -30%;
-			left: -30%;
-			right: -30%;
-			bottom: -30%;
-			background: radial-gradient(circle, rgba($color-primary, 0.4) 0%, rgba($color-primary, 0) 70%);
-			border-radius: 50%;
-			z-index: -1;
-			animation: expand-glow 1.5s ease-out forwards;
-		}
-	}
-	
-	@keyframes expand-glow {
-		0% {
-			transform: scale(0.5);
-			opacity: 0.8;
-		}
-		100% {
-			transform: scale(1.5);
-			opacity: 0;
 		}
 	}
 	
@@ -1399,29 +1373,220 @@
 	}
 	
 	@keyframes pulse {
+		0% { transform: scale(1); }
+		50% { transform: scale(1.05); }
+		100% { transform: scale(1); }
+	}
+	
+	@keyframes pulse-text {
+		0% { opacity: 0.7; }
+		100% { opacity: 1; }
+	}
+	
+	@keyframes pulse-strong {
 		0% {
-			opacity: 0.3;
+			opacity: 0.5;
+			box-shadow: 0 0 20rpx 5rpx rgba($color-primary, 0.5);
 		}
 		100% {
-			opacity: 0.8;
+			opacity: 1;
+			box-shadow: 0 0 40rpx 10rpx rgba($color-primary, 0.8);
 		}
 	}
 	
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
+	@keyframes sparkle-out {
+		0% {
+			transform: scale(0);
 			opacity: 1;
 		}
+		100% {
+			transform: scale(3);
+			opacity: 0;
+		}
 	}
 	
-	@keyframes scaleIn {
-		from {
-			transform: scale(0.9);
+	@keyframes expand-glow {
+		0% {
+			transform: scale(0.5);
+			opacity: 0.8;
 		}
-		to {
-			transform: scale(1);
+		100% {
+			transform: scale(1.5);
+			opacity: 0;
+		}
+	}
+	
+	// 修改标题样式
+	.fancy-title {
+		position: relative;
+		display: inline-block;
+		padding: 0 12rpx;
+		background: linear-gradient(135deg, rgba($color-primary, 0.1), rgba($color-accent, 0.05));
+		border-radius: 8rpx;
+		border-left: 6rpx solid $color-primary;
+		box-shadow: 0 2rpx 8rpx rgba($color-primary, 0.2);
+		letter-spacing: 2rpx;
+		text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.2);
+		transform: perspective(500px) rotateX(0deg);
+		transition: all 0.3s ease;
+		
+		&::before {
+			content: '';
+			position: absolute;
+			top: -6rpx;
+			left: 20%;
+			width: 60%;
+			height: 2rpx;
+			background: linear-gradient(90deg, transparent, rgba($color-accent, 0.5), transparent);
+		}
+		
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -6rpx;
+			left: 10%;
+			width: 80%;
+			height: 2rpx;
+			background: linear-gradient(90deg, transparent, rgba($color-primary, 0.5), transparent);
+		}
+		
+		&:hover {
+			transform: perspective(500px) rotateX(5deg) translateY(-2rpx);
+		}
+	}
+	
+	// 添加光芒动画
+	@keyframes glow {
+		0% { box-shadow: 0 0 10rpx rgba(255, 255, 255, 0.5); }
+		50% { box-shadow: 0 0 20rpx rgba(255, 255, 255, 0.8); }
+		100% { box-shadow: 0 0 10rpx rgba(255, 255, 255, 0.5); }
+	}
+	
+	// 添加脉冲效果
+	.pulse-effect {
+		animation: pulse 2s ease-in-out infinite;
+	}
+	
+	.pulse-light {
+		animation: pulse 3s ease-in-out infinite;
+	}
+	
+	.pulse-glow {
+		animation: glow 2s ease-in-out infinite;
+	}
+	
+	// 添加渐变按钮样式
+	.gradient-btn {
+		background: linear-gradient(135deg, #9370DB, #6A5ACD);
+		border: none;
+		box-shadow: 0 4rpx 12rpx rgba(147, 112, 219, 0.4);
+		transition: all 0.3s ease;
+		
+		&:active {
+			background: linear-gradient(135deg, #8A65D4, #5D4FB3);
+			transform: translateY(2rpx);
+			box-shadow: 0 2rpx 8rpx rgba(147, 112, 219, 0.4);
+		}
+	}
+	
+	// 热点问题样式
+	.hot-topics {
+		margin-bottom: 50rpx;
+	}
+	
+	.hot-topic-item {
+		display: flex;
+		align-items: center;
+		padding: 24rpx;
+		margin-bottom: 24rpx;
+		background-color: rgba($color-bg-card, 0.7);
+		border-radius: 12rpx;
+		transition: all 0.3s ease;
+		
+		&:active {
+			transform: scale(0.98);
+			background-color: rgba($color-bg-card, 0.9);
+		}
+	}
+	
+	.hot-topic-icon {
+		width: 80rpx;
+		height: 80rpx;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 36rpx;
+		margin-right: 20rpx;
+		
+		&.love-icon {
+			background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+		}
+		
+		&.career-icon {
+			background: linear-gradient(135deg, #5D9CEC, #8BB3F5);
+		}
+		
+		&.health-icon {
+			background: linear-gradient(135deg, #57DF86, #8BF5AA);
+		}
+		
+		&.wealth-icon {
+			background: linear-gradient(135deg, #FFCE54, #F5D76E);
+		}
+		
+		&.relationship-icon {
+			background: linear-gradient(135deg, #AC92EC, #C5B0FC);
+		}
+	}
+	
+	.hot-topic-info {
+		flex: 1;
+		
+		.hot-topic-name {
+			font-size: 30rpx;
+			font-weight: 600;
+			display: block;
+			margin-bottom: 6rpx;
+		}
+		
+		.hot-topic-desc {
+			font-size: 24rpx;
+			color: $color-text-secondary;
+		}
+	}
+	
+	.hot-topic-arrow {
+		font-size: 36rpx;
+		color: $color-primary;
+		margin-left: 10rpx;
+	}
+	
+	// 增强现有组件视觉效果
+	.reading-type-item, .daily-fortune, .daily-fortune-empty {
+		transition: all 0.3s ease;
+		
+		&:active {
+			transform: scale(0.98);
+		}
+	}
+	
+	.card-deck {
+		transition: all 0.3s ease;
+		
+		&:active {
+			transform: scale(0.95);
+		}
+	}
+	
+	// 更新FAB按钮样式
+	.fab {
+		box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.2);
+		transition: all 0.3s ease;
+		
+		&:active {
+			transform: scale(0.95);
+			box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
 		}
 	}
 </style>
