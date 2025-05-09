@@ -144,7 +144,7 @@ export default {
     startShuffleAnimation() {
       // 设置进度条增长
       this.shuffleTimer = setInterval(() => {
-        this.shuffleProgress += 1.67; // 6秒完成
+        this.shuffleProgress += 2.5; // 4秒完成
         if (this.shuffleProgress >= 100) {
           clearInterval(this.shuffleTimer);
           // 自动进入抽牌阶段
@@ -1075,11 +1075,21 @@ export default {
 
 /* 洗牌阶段样式 */
 .shuffle {
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1E1E2E;
+    padding: 0;
+  }
+
+
   .card-container {
     position: relative;
     width: 600rpx;
     height: 600rpx;
-    margin: 50rpx auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1089,15 +1099,17 @@ export default {
     position: absolute;
     width: 182rpx;
     height: 301rpx;
-    background-image: url('/static/images/tarot/back/card-back.png');
+    background-image: url('/static/images/tarot/back/card-back.png'); /* Updated path to existing image */
+    background-color: #9370DB; /* Fallback color if image not found */
     background-size: cover;
     background-position: center;
     border-radius: 10rpx;
     box-shadow: 0 0 30rpx rgba(255, 255, 255, 0.2);
     transform-origin: center center;
+    opacity: 0;
     animation: rotate-in 3s ease-in-out forwards;
-    top: 150rpx;
-    left: 210rpx;
+    left: calc(50% - 91rpx); /* Center horizontally (half of width) */
+    top: calc(50% - 150.5rpx); /* Center vertically (half of height) */
   }
 
   .card::after {
@@ -1140,7 +1152,6 @@ export default {
     opacity: 1;
   }
 }
-
 @keyframes self-spin {
   0% {
     transform: rotate(0deg);

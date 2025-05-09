@@ -156,61 +156,61 @@
 					},
 					{
 						name: '是非问题',
-						description: '通过两张牌的对比，为是与否的决策提供清晰指引',
-						cards: 2,
+						description: '可以回答一些是非问题，通过三张牌的组合揭示答案倾向',
+						cards: 3,
 						image: '/static/images/spread/YesNo Questions.png'
 					},
 					{
 						name: '圣三角',
-						description: '从问题本质、挑战和解决方案三个维度全面分析',
+						description: '可以回答一些简单问题，从三个维度全面分析',
 						cards: 3,
 						image: '/static/images/spread/Sacred Triangle.png'
 					},
 					{
 						name: '钻石展开法',
-						description: '深度剖析事件的起因、影响和最终走向，洞察完整发展',
+						description: '可以回答一些事件走向类的问题，剖析事件的完整发展',
 						cards: 5,
 						image: '/static/images/spread/Diamond Spread.png'
 					},
 					{
 						name: '恋人金字塔',
-						description: '探索双方感受和共同基础，预测恋情可能的发展方向',
+						description: '可以回答一些恋爱走向问题，预测恋情可能的发展方向',
 						cards: 6,
 						image: '/static/images/spread/Lovers Pyramid.png'
 					},
 					{
 						name: '自我探索',
-						description: '照见真实的自己，探索内在动力和潜在的成长方向',
+						description: '在某些处境下认清自己，探索内在动力和潜在的成长方向',
 						cards: 4,
 						image: '/static/images/spread/Self-Exploration.png'
 					},
 					{
 						name: '吉普赛十字',
-						description: '分析双方在关系中的位置，揭示关系核心和可能走向',
+						description: '可以回答关系走向问题，揭示关系核心和可能走向',
 						cards: 5,
 						image: '/static/images/spread/Gypsy Cross.png'
 					},
 					{
 						name: '二选一',
-						description: '对比分析两种选择的本质和可能结果，辅助重要决策',
+						description: '可以回答并比较一些多种选择问题，辅助重要决策',
 						cards: 5,
 						image: '/static/images/spread/Choose One of Two.png'
 					},
 					{
 						name: '关系发展',
-						description: '深入理解双方真实想法与期望，预测关系潜在发展',
+						description: '可以回答一些双方想法与期望，预测关系潜在发展',
 						cards: 6,
 						image: '/static/images/spread/Relationship Development.png'
 					},
 					{
 						name: '六芒星',
-						description: '全面解析复杂事业和项目，探究多种影响因素和长期走向',
+						description: '可以回答一些事业事件走向类的问题，全面解析复杂项目',
 						cards: 7,
 						image: '/static/images/spread/Six-Pointed Star.png'
 					},
 					{
 						name: '凯尔特十字',
-						description: '古老强大的综合牌阵，多维度深入剖析重大问题和人生方向',
+						description: '古老的牌阵，多维度深入剖析重大问题和人生方向',
 						cards: 10,
 						image: '/static/images/spread/Celtic Cross.png'
 					}

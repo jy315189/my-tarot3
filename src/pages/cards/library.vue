@@ -70,7 +70,7 @@
           <!-- 权杖牌 -->
           <view class="suit-section">
             <view class="suit-header" @tap="toggleSuit('wands')">
-              <text class="suit-title">权杖</text>
+            <text class="suit-title">权杖</text>
               <text class="toggle-icon">{{ suitExpanded.wands ? '−' : '+' }}</text>
             </view>
             <view class="card-grid" v-if="suitExpanded.wands">
@@ -91,7 +91,7 @@
           <!-- 圣杯牌 -->
           <view class="suit-section">
             <view class="suit-header" @tap="toggleSuit('cups')">
-              <text class="suit-title">圣杯</text>
+            <text class="suit-title">圣杯</text>
               <text class="toggle-icon">{{ suitExpanded.cups ? '−' : '+' }}</text>
             </view>
             <view class="card-grid" v-if="suitExpanded.cups">
@@ -112,7 +112,7 @@
           <!-- 宝剑牌 -->
           <view class="suit-section">
             <view class="suit-header" @tap="toggleSuit('swords')">
-              <text class="suit-title">宝剑</text>
+            <text class="suit-title">宝剑</text>
               <text class="toggle-icon">{{ suitExpanded.swords ? '−' : '+' }}</text>
             </view>
             <view class="card-grid" v-if="suitExpanded.swords">
@@ -133,7 +133,7 @@
           <!-- 金币牌 -->
           <view class="suit-section">
             <view class="suit-header" @tap="toggleSuit('pentacles')">
-              <text class="suit-title">金币</text>
+            <text class="suit-title">金币</text>
               <text class="toggle-icon">{{ suitExpanded.pentacles ? '−' : '+' }}</text>
             </view>
             <view class="card-grid" v-if="suitExpanded.pentacles">
@@ -1278,11 +1278,11 @@ export default {
     &:active {
       background-color: rgba($color-primary, 0.2);
     }
-    
-    .suit-title {
-      font-size: 30rpx;
-      font-weight: 600;
-      color: $color-primary;
+  
+  .suit-title {
+    font-size: 30rpx;
+    font-weight: 600;
+    color: $color-primary;
     }
     
     .toggle-icon {

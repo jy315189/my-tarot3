@@ -32,6 +32,7 @@
       border-radius: 10px;
       box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
       transform-origin: center center;
+      opacity: 0;
       animation: rotate-in 3s ease-in-out forwards;
     }
 
@@ -74,7 +75,6 @@
         opacity: 1;
       }
     }
-
     @keyframes self-spin {
       0% {
         transform: rotate(0deg);
@@ -88,13 +88,24 @@
 <body>
   <div id="app">
     <div class="card-container">
-      <div class="card" v-for="n in 5" :key="n"></div>
+      <div class="card" v-for="n in 5" :key="n" v-show="cardsVisible"></div>
     </div>
   </div>
 
   <script>
     const { createApp } = Vue;
-    createApp({}).mount('#app');
+    createApp({
+      data() {
+        return {
+          cardsVisible: false,
+        };
+      },
+      mounted() {
+        setTimeout(() => {
+          this.cardsVisible = true;
+        }, 1000); // Delay to show cards after 1 second
+      },
+    }).mount('#app');
   </script>
 </body>
 </html>
